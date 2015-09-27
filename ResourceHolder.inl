@@ -1,3 +1,4 @@
+#include "ResourceMap.hpp"
 #pragma once
 template <typename Resource, typename Identifier>
 void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename)
@@ -40,6 +41,24 @@ const Resource& ResourceHolder<Resource, Identifier>::get(Identifier id) const
     assert(found != mResourceMap.end());
 
     return *found->second;
+}
+
+template<typename Resource, typename Identifier>
+inline void ResourceHolder<Resource, Identifier>::setAllRepeated()
+{
+    for (auto& it : mResourceMap)
+    {
+        it.second->setRepeated(true);
+    }
+}
+
+template<typename Resource, typename Identifier>
+inline void ResourceHolder<Resource, Identifier>::setAllSmooth()
+{
+    for (auto& it : mResourceMap)
+    {
+        it.second->setSmooth(true);
+    }
 }
 
 template <typename Resource, typename Identifier>

@@ -1,0 +1,8 @@
+
+# = full tower tile
+* = full sand tile
+q = northwest
+w = northeast
+a = southwest 
+s = southeast
+! = spawn tile

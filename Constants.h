@@ -12,16 +12,16 @@ namespace GraphicsConstants
 
     constexpr auto tile_square_dimension = 25;
 
-    constexpr auto game_tiles_per_row = (aspect_ratio.den * aspect_ratio_gcf) / 25;
+    constexpr unsigned game_tiles_per_row = (aspect_ratio.den * aspect_ratio_gcf) / 25;
 
-    constexpr auto game_tiles_per_column = (aspect_ratio.num * aspect_ratio_gcf - game_menu_height) / 25;
+    constexpr unsigned game_tiles_per_column = (aspect_ratio.num * aspect_ratio_gcf - game_menu_height) / 25;
 
-    decltype (auto) getAbsoluteWidth()
+    constexpr auto getAbsoluteWidth()
     {
         return aspect_ratio_gcf * aspect_ratio.den;
     }
 
-    decltype (auto) getAbsoluteHeight()
+    constexpr auto getAbsoluteHeight()
     {
         return aspect_ratio_gcf * aspect_ratio.num;
     }

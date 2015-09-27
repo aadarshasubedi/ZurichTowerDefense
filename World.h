@@ -3,8 +3,8 @@
 #include "ResourceMap.hpp"
 #include "ResourceIdentifiers.h"
 #include <array>
-#include "SceneNode.h"
 #include "CommandQueue.h"
+#include "SceneGrid.h"
 
 class World : private sf::NonCopyable
 {
@@ -30,7 +30,7 @@ private:
     sf::RenderWindow& mWindow;
     sf::View mWorldView;
     TextureHolder mTextures;
-    SceneNode mSceneGraph;
+    SceneGrid mSceneGrid;
     std::array<SceneNode*, LayerCount> mSceneLayers;
     sf::FloatRect mWorldBounds;
     sf::Vector2f mSpawnPosition;

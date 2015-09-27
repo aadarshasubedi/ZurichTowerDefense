@@ -18,6 +18,8 @@ namespace Textures
         FULL_WALK_TILE,
         SPAWN_TILE,
 
+        MAX_NUMBER_OF_TILES,
+
         TitleScreen,
         ButtonNormal,
         ButtonSelected,
@@ -37,5 +39,5 @@ namespace Fonts
 template <typename Resource, typename Identifier>
 class ResourceHolder;
 
-typedef ResourceHolder<sf::Texture, Textures::ID> TextureHolder;
+typedef ResourceHolder<sf::Texture, Textures::ID>   TextureHolder;
 typedef ResourceHolder<sf::Font, Fonts::ID>			FontHolder;

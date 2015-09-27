@@ -5,35 +5,22 @@
 #include <SFML/Graphics.hpp>
 #include "Tile.h"
 #include <array>
+#include "Constants.h"
+#include "Tower.h"
 
-
-class SceneGrid :public sf::Transformable, public sf::Drawable, private sf::NonCopyable 
+class SceneGrid : public sf::Drawable
 {
-public:
-    typedef std::unique_ptr<SceneGrid> Ptr;
-
 
 public:
-    SceneGrid();
-
-    void                    onCommand(const Command& command, sf::Time dt);
-    void					attachChild(Ptr child);
-    Ptr						detachChild(const SceneNode& node);
-
-    void					update(sf::Time dt);
-
-    sf::Vector2f			getWorldPosition() const;
-    sf::Transform			getWorldTransform() const;
-
+    SceneGrid(const TextureHolder& th);
+    SceneGrid(const SceneGrid& other) = delete;
+    void SceneGrid::LoadFromFile(const std::string & inputFilename);
+    Tile& SceneGrid::getTile(const uint32 rowIndex, const uint32 columnIndex);
+    const Tile& SceneGrid::getTile(const uint32 rowIndex, const uint32 columnIndex) const;
+    // Inherited via Drawable
+    virtual void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
 
 private:
-    virtual void			updateCurrent(sf::Time dt);
-    void					updateChildren(sf::Time dt);
-
-    virtual void			draw(sf::RenderTarget& target, sf::RenderStates states) const;
-    virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-    void					drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
-
-private:
-    std::array<Tile<int>, 12> mTilemap;
+    TextureHolder& mTextures;
+    std::vector<std::vector<Tile>> mGrid;
 };

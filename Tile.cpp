@@ -3,20 +3,61 @@
 
 using namespace std;
 
-template <typename T>
-Tile<T>::Tile(TileAttributes::Orientation orientation, TileAttributes::Type type, TextureHolder& textures)
-    : mOrientation(orientation), mType(type), mTextureMap(textures), mEntity(nullptr)
+Tile::Tile()
+    : mOrientation(TileAttributes::Orientation::FULL), mType(TileAttributes::Type::Tower), mEntity(nullptr), mSprite()
 {
 }
 
-template<typename T>
-sf::Texture & Tile<T>::getTexture(Textures::ID id)
+Tile::Tile(const Tile &other)
 {
-    return mTextureMap.get(id);
+    mOrientation = other.mOrientation;
+    mType = other.mType;
 }
 
-template<typename T>
-void Tile<T>::setEntity(std::unique_ptr<T>&& universalRef)
+Tile::Tile(const TileAttributes::Orientation orientation, const TileAttributes::Type type, const sf::Sprite sprite)
+    : mOrientation(orientation), mType(type), mEntity(nullptr), mSprite(sprite)
 {
-    mEntity = move_if_noexcept(universalRef)
 }
+
+Tile & Tile::operator=(Tile && other)
+{
+    mOrientation = other.mOrientation;
+    mType        = other.mType;
+    mEntity      = move(other.mEntity);
+    mSprite      = other.mSprite;
+    return *this;
+}
+Tile & Tile::operator=(const Tile & other)
+{
+    mOrientation = other.mOrientation;
+    mType = other.mType;
+    mSprite = other.mSprite;
+    return *this;
+}
+
+
+const TileAttributes::Orientation Tile::getOrientation() const
+{
+    return mOrientation;
+}
+
+const TileAttributes::Type Tile::getType() const
+{
+    return mType;
+}
+
+sf::Sprite & Tile::getSprite()
+{
+    return mSprite;
+}
+
+const sf::Sprite & Tile::getSprite() const
+{
+    return mSprite;
+}
+
+void Tile::setEntity(std::unique_ptr<Tower>&& universalRef)
+{
+    mEntity = move_if_noexcept(universalRef);
+}
+

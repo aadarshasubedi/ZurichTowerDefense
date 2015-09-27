@@ -4,6 +4,8 @@
 #include "ResourceIdentifiers.h"
 #include "ResourceMap.hpp"
 #include <memory>
+#include <SFML/Graphics.hpp>
+#include "Tower.h"
 
 namespace TileAttributes
 {
@@ -23,25 +25,26 @@ namespace TileAttributes
     };
 };
 
-template<typename T>
 class Tile
 {
 private:
     TileAttributes::Orientation mOrientation;
-    TileAttributes::Type mType;
-    std::unique_ptr<T> mEntity;
-    TextureHolder& mTextureMap;
+    TileAttributes::Type        mType;
+    std::unique_ptr<Tower>      mEntity;
+    sf::Sprite                  mSprite;
+    
 public:
-    Tile(TileAttributes::Orientation, TileAttributes::Type, TextureHolder&);
+    Tile();
+    Tile(const TileAttributes::Orientation orientation, const TileAttributes::Type type, const sf::Sprite sprite);
+    Tile(const Tile &);
+    Tile & operator=(const Tile & other);
+    Tile & operator=(Tile && other);
 
-    Tile operator=(const Tile& other);
+    const TileAttributes::Orientation getOrientation() const;
+    const TileAttributes::Type        getType() const;
 
-    sf::Texture& getTexture(Textures::ID);
-
-    void setEntity(std::unique_ptr<T>&&);
-
-    bool isWalkable();
-
-    bool isBuildable();
+    sf::Sprite& getSprite();
+    const sf::Sprite& getSprite() const;
+    void Tile::setEntity(std::unique_ptr<Tower>&& other);
 
 };
