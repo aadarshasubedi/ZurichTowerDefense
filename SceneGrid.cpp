@@ -22,6 +22,8 @@ void SceneGrid::LoadFromFile(const std::string & inputFilename)
 
     using namespace Textures;
 
+    vector<TileAttributes::Coordinate> spawnCoordinates;
+
     while (getline(inputStream, line))
     {
         uint32 colIndex = 0;
@@ -65,14 +67,29 @@ void SceneGrid::LoadFromFile(const std::string & inputFilename)
                 sprite.setTexture(mTextures.get(ID::SE_TILE));
                 orientation = Orientation::SE;
                 break;
+            case '!':
+                sprite.setTexture(mTextures.get(ID::SPAWN_TILE));
+                type = Type::Spawn;
+                orientation = Orientation::SE;
+                break;
             default:
                 break;
 
             }
-            getTile(rowIndex, colIndex) = Tile(orientation, type, sprite);
+            getTile(rowIndex, colIndex) = Tile(orientation, type, sprite, rowIndex, colIndex);
+            if (type == Type::Spawn)
+            {
+                spawnCoordinates.push_back(Coordinate{ rowIndex, colIndex });
+            }
             ++colIndex;
         }
         ++rowIndex;
+    }
+
+    for (auto coordinates : spawnCoordinates)
+    {
+        Tile& spawnTile = getTile(coordinates.x, coordinates.y);
+        spawnTile.findPath(*this);
     }
 }
 

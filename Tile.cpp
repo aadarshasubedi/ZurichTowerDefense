@@ -1,5 +1,6 @@
 #include "Tile.h"
 #include <utility>
+#include "SceneGrid.h"
 
 using namespace std;
 
@@ -12,10 +13,11 @@ Tile::Tile(const Tile &other)
 {
     mOrientation = other.mOrientation;
     mType = other.mType;
+    mCoordinates = other.mCoordinates;
 }
 
-Tile::Tile(const TileAttributes::Orientation orientation, const TileAttributes::Type type, const sf::Sprite sprite)
-    : mOrientation(orientation), mType(type), mEntity(nullptr), mSprite(sprite)
+Tile::Tile(const TileAttributes::Orientation orientation, const TileAttributes::Type type, const sf::Sprite sprite, uint32 x, uint32 y)
+    : mOrientation(orientation), mType(type), mEntity(nullptr), mSprite(sprite), mCoordinates{ x, y}
 {
 }
 
@@ -25,6 +27,7 @@ Tile & Tile::operator=(Tile && other)
     mType        = other.mType;
     mEntity      = move(other.mEntity);
     mSprite      = other.mSprite;
+    mCoordinates = other.mCoordinates;
     return *this;
 }
 Tile & Tile::operator=(const Tile & other)
@@ -32,6 +35,7 @@ Tile & Tile::operator=(const Tile & other)
     mOrientation = other.mOrientation;
     mType = other.mType;
     mSprite = other.mSprite;
+    mCoordinates = other.mCoordinates;
     return *this;
 }
 
@@ -44,6 +48,10 @@ const TileAttributes::Orientation Tile::getOrientation() const
 const TileAttributes::Type Tile::getType() const
 {
     return mType;
+}
+
+void Tile::findPath(SceneGrid & grid)
+{
 }
 
 sf::Sprite & Tile::getSprite()

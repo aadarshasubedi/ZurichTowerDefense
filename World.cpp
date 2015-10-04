@@ -41,10 +41,12 @@ void World::loadTextures()
 {
     mTextures.load(Textures::FULL_TOWER_TILE, "GrassFull.png");
     mTextures.load(Textures::FULL_WALK_TILE,  "SandFull.png");
+    mTextures.load(Textures::SPAWN_TILE,      "SpawnFull.png");
     mTextures.load(Textures::NE_TILE,         "GrassNE.png");
     mTextures.load(Textures::NW_TILE,         "GrassNW.png");
     mTextures.load(Textures::SW_TILE,         "GrassSW.png");
     mTextures.load(Textures::SE_TILE,         "GrassSE.png");
+    mTextures.load(Textures::PROTOMAN,        "Protoman.png");
     mTextures.setAllRepeated();
     mTextures.setAllSmooth();
 }

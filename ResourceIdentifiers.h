@@ -23,7 +23,9 @@ namespace Textures
         TitleScreen,
         ButtonNormal,
         ButtonSelected,
-        ButtonPressed
+        ButtonPressed,
+
+        PROTOMAN
     };
 }
 
